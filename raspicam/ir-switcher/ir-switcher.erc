@@ -1,0 +1,21 @@
+ERC report (Sun 29 Mar 2015 10:45:09 AM CEST)
+
+***** Sheet /
+ErrType(5): Conflict problem between pins. Severity: error
+    @ (130.81 mm,88.90 mm): Pin 13 (output) of component U2 is connected to 
+    @ (130.81 mm,48.26 mm): pin 14 (output) of component U1 (net 16).
+ErrType(5): Conflict problem between pins. Severity: error
+    @ (130.81 mm,78.74 mm): Pin 15 (output) of component U2 is connected to 
+    @ (130.81 mm,38.10 mm): pin 16 (output) of component U1 (net 17).
+ErrType(5): Conflict problem between pins. Severity: error
+    @ (130.81 mm,81.28 mm): Pin 14 (output) of component U2 is connected to 
+    @ (130.81 mm,45.72 mm): pin 15 (output) of component U1 (net 19).
+ErrType(5): Conflict problem between pins. Severity: error
+    @ (130.81 mm,55.88 mm): Pin 13 (output) of component U1 is connected to 
+    @ (130.81 mm,71.12 mm): pin 16 (output) of component U2 (net 20).
+ErrType(3): Pin connected to some others pins but no pin to drive it
+    @ (99.06 mm,81.28 mm): Pin 3 (input) of component U2 is not driven (Net 22).
+ErrType(3): Pin connected to some others pins but no pin to drive it
+    @ (99.06 mm,45.72 mm): Pin 2 (input) of component U1 is not driven (Net 23).
+
+ >> Errors ERC: 0

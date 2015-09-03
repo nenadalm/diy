@@ -1,0 +1,80 @@
+Cmp-Mod V01 Created by CvPcb (2014-jan-25)-product date = Sun 29 Mar 2015 03:28:31 PM CEST
+
+BeginCmp
+TimeStamp = /5516B12A;
+Reference = IR_CUT1;
+ValeurCmp = CONN_2;
+IdModule  = Pin_Headers:Pin_Header_Straight_1x02;
+EndCmp
+
+BeginCmp
+TimeStamp = /5516AFB5;
+Reference = LIGHT_SENS1;
+ValeurCmp = CONN_5;
+IdModule  = Pin_Headers:Pin_Header_Straight_1x05;
+EndCmp
+
+BeginCmp
+TimeStamp = /5517DF0F;
+Reference = P1;
+ValeurCmp = CONN_8;
+IdModule  = Pin_Headers:Pin_Header_Straight_1x08;
+EndCmp
+
+BeginCmp
+TimeStamp = /5517C071;
+Reference = Q1;
+ValeurCmp = BC237;
+IdModule  = Housings_TO-92:TO-92-Bipolar-inline-wide-CBE;
+EndCmp
+
+BeginCmp
+TimeStamp = /5517C1F2;
+Reference = Q2;
+ValeurCmp = BC237;
+IdModule  = Housings_TO-92:TO-92-Bipolar-inline-wide-CBE;
+EndCmp
+
+BeginCmp
+TimeStamp = /5516A622;
+Reference = R1;
+ValeurCmp = 470R;
+IdModule  = Discret:R3;
+EndCmp
+
+BeginCmp
+TimeStamp = /5516A636;
+Reference = R2;
+ValeurCmp = 470R;
+IdModule  = Discret:R3;
+EndCmp
+
+BeginCmp
+TimeStamp = /5516A65E;
+Reference = R3;
+ValeurCmp = 100R;
+IdModule  = Discret:R3;
+EndCmp
+
+BeginCmp
+TimeStamp = /5516A64A;
+Reference = R4;
+ValeurCmp = 100R;
+IdModule  = Discret:R3;
+EndCmp
+
+BeginCmp
+TimeStamp = /55171BA5;
+Reference = U1;
+ValeurCmp = opto_relay_8;
+IdModule  = Sockets_DIP:DIP-8__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /55171BBE;
+Reference = U2;
+ValeurCmp = opto_relay_8;
+IdModule  = Sockets_DIP:DIP-8__300;
+EndCmp
+
+EndListe

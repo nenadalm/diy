@@ -1,0 +1,31 @@
+Cmp-Mod V01 Created by Cvpcb (after 2015-mar-04 BZR unknown)-product   date = Sat 18 Jul 2015 10:48:56 AM CEST
+
+BeginCmp
+TimeStamp = /55A96130;
+Reference = IN1;
+ValeurCmp = CONN_01X08;
+IdModule  = power-source:USB2AW;
+EndCmp
+
+BeginCmp
+TimeStamp = /55338D29;
+Reference = K1;
+ValeurCmp = RELAY_G5V-2;
+IdModule  = power-source:RELAY;
+EndCmp
+
+BeginCmp
+TimeStamp = /55AA0E95;
+Reference = OUT1;
+ValeurCmp = CONN_01X04;
+IdModule  = Connect:USB_A;
+EndCmp
+
+BeginCmp
+TimeStamp = /55A95BFF;
+Reference = P1;
+ValeurCmp = CONN_01X03;
+IdModule  = power-source:CMM_53SQ;
+EndCmp
+
+EndListe
