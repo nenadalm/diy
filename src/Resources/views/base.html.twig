@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+    <head>
+        <title>{% block title %}{{ title }}{% endblock %}</title>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <nav>
+            {% block nav %}
+                <ul>
+                    <li>
+                        <a href="/index.html">home</a>
+                    </li>
+                    {% for link in links %}
+                        <li>
+                            <a href="{{ link.link }}">{{ link.label }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endblock %}
+        </nav>
+
+        <article>
+            {% block content %}
+                {{ content|raw }}
+            {% endblock %}
+        </article>
+    </body>
+</html>
