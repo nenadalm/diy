@@ -13,103 +13,47 @@ define('TEMPLATES_DIR', __DIR__ . '/../src/Resources/views');
 define('TEMP_DIR', __DIR__ . '/../tmp');
 define('WEB_DIR', __DIR__ . '/../web');
 
-//$github = new GithubApi(new Client(), new RepositoryInfo(GITHUB_USERNAME, GITHUB_REPOSITORY, GITHUB_BRANCH));
+downloadReadmes();
 
-htmlFromMarkdown();
-
-$twig = new Twig_Environment(new Twig_Loader_Filesystem(TEMPLATES_DIR));
-$nav = createNav();
-file_put_contents(
-    st::concat(WEB_DIR, '/index.html'),
-    $twig->render('index.html.twig', ['links' => createNav()])
-);
-
-$subNav = array_map(
-    function (array $link) {
-        $link['link'] = st::concat('../', $link['link']);
-
-        return $link;
-    },
-    $nav
-);
-
-foreach ($nav as $link) {
-    $file = st::concat(WEB_DIR, '/', ar::get($link, 'label'), '/README.html');
-    $dir = dirname($file);
-    if (!is_dir($dir)) {
-        mkdir($dir, 0777, true);
-    }
-
-    file_put_contents(
-        $file,
-        $twig->render(
-            'base.html.twig',
-            [
-                'title' => ar::get($link, 'label'),
-                'content' => contentFromLink($link),
-                'links' => $subNav,
-            ]
-        )
-    );
-}
-
-function contentFromLink(array $link) {
-     return file_get_contents(
-        fn::thread(
-            ar::get($link, 'link'),
-            fn::partial('st::concat', TEMP_DIR, '/')
-        )
-    );
-}
-
-function createNav() {
-    return array_merge(
-        array_filter(
-            array_map(
-                function ($project) {
-                    return [
-                        'link'  => st::concat($project, '/README.html'),
-                        'label' => $project,
-                    ];
-                },
-                scandir(TEMP_DIR)
-            ),
-            fn::comp(
-                'is_file',
-                fn::partial('st::concat', TEMP_DIR, '/'),
-                fn::partial('ar::get', fn::ARG_PLACEHOLDER, 'link')
-            )
-        )
-    );
-}
-
-
-function htmlFromMarkdown() {
+function downloadReadmes()
+{
     $client = new Client();
     /* @var $contents Github\Api\Repository\Contents */
     $contents = $client->api('repo')->contents();
 
-    $parsedown = new Parsedown();
-    array_map(
-        function ($path) use ($parsedown, $contents) {
-            $html = fn::thread(
-                call_user_func(
-                    [$contents, 'download'],
-                    GITHUB_USERNAME,
-                    GITHUB_REPOSITORY,
-                    $path,
-                    GITHUB_BRANCH
-                ),
-                [$parsedown, 'text']
-            );
+    $template = <<<TEMPLATE
+title: {{ title }}
+date: {{ date }}
+tags:
+---
+{{ content }}
+TEMPLATE;
 
-            $file = TEMP_DIR . '/' . str_replace('.md', '.html', $path);
-            echo sprintf('Generating file %s ...', $file);
-            $dir = dirname($file);
-            if (!file_exists($dir)) {
-                mkdir($dir, 0777, true);
-            }
-            file_put_contents($file, $html);
+    $replacements = [
+        '{{ date }}' => date('Y-m-d H:i:s'),
+    ];
+
+    array_map(
+        function ($path) use ($contents, $replacements, $template) {
+            file_put_contents(
+                st::concat(__DIR__, '/../source/_posts/', basename(dirname($path)), '.md'),
+                strtr(
+                    $template,
+                    array_merge(
+                        $replacements,
+                        [
+                            '{{ title }}' => ucfirst(basename(dirname($path))),
+                            '{{ content }}' => call_user_func(
+                                [$contents, 'download'],
+                                GITHUB_USERNAME,
+                                GITHUB_REPOSITORY,
+                                $path,
+                                GITHUB_BRANCH
+                            )
+                        ]
+                    )
+                )
+            );
         },
         array_filter(
             array_map(
@@ -128,8 +72,6 @@ function htmlFromMarkdown() {
             fn::partial([$contents, 'exists'], GITHUB_USERNAME, GITHUB_REPOSITORY, fn::ARG_PLACEHOLDER, GITHUB_BRANCH)
         )
     );
-
-    echo "\n";
 }
 
 class RepositoryInfo {
