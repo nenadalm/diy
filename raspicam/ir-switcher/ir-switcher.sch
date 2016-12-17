@@ -1,4 +1,5 @@
 EESchema Schematic File Version 2
+LIBS:ir-switcher-rescue
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -10,7 +11,6 @@ LIBS:cmos4000
 LIBS:adc-dac
 LIBS:memory
 LIBS:xilinx
-LIBS:special
 LIBS:microcontrollers
 LIBS:dsp
 LIBS:microchip
@@ -30,8 +30,8 @@ LIBS:atmel
 LIBS:contrib
 LIBS:valves
 LIBS:raspi
-LIBS:raspicam-cache
-EELAYER 24 0
+LIBS:ir-switcher-cache
+EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -46,7 +46,7 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L R R1
+L R-RESCUE-ir-switcher R1
 U 1 1 5516A622
 P 2850 2600
 F 0 "R1" V 2930 2600 40  0000 C CNN
@@ -57,7 +57,7 @@ F 3 "" H 2850 2600 30  0000 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L R R2
+L R-RESCUE-ir-switcher R2
 U 1 1 5516A636
 P 2850 3700
 F 0 "R2" V 2930 3700 40  0000 C CNN
@@ -68,7 +68,7 @@ F 3 "" H 2850 3700 30  0000 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L R R4
+L R-RESCUE-ir-switcher R4
 U 1 1 5516A64A
 P 3650 3500
 F 0 "R4" V 3730 3500 40  0000 C CNN
@@ -79,7 +79,7 @@ F 3 "" H 3650 3500 30  0000 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L R R3
+L R-RESCUE-ir-switcher R3
 U 1 1 5516A65E
 P 3650 2400
 F 0 "R3" V 3730 2400 40  0000 C CNN
@@ -90,7 +90,7 @@ F 3 "" H 3650 2400 30  0000 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L GND #PWR01
+L GND-RESCUE-ir-switcher #PWR01
 U 1 1 5516A9AC
 P 3400 2800
 F 0 "#PWR01" H 3400 2800 30  0001 C CNN
@@ -101,7 +101,7 @@ F 3 "" H 3400 2800 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR02
+L GND-RESCUE-ir-switcher #PWR02
 U 1 1 5516A9C0
 P 3400 3900
 F 0 "#PWR02" H 3400 3900 30  0001 C CNN
@@ -112,7 +112,7 @@ F 3 "" H 3400 3900 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR03
+L GND-RESCUE-ir-switcher #PWR03
 U 1 1 5516A9F8
 P 5150 3850
 F 0 "#PWR03" H 5150 3850 30  0001 C CNN
@@ -167,7 +167,7 @@ F 3 "" H 4550 3550 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR04
+L GND-RESCUE-ir-switcher #PWR04
 U 1 1 55171D54
 P 5150 2050
 F 0 "#PWR04" H 5150 2050 30  0001 C CNN
@@ -178,7 +178,7 @@ F 3 "" H 5150 2050 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L BC237 Q1
+L BC237-RESCUE-ir-switcher Q1
 U 1 1 5517C071
 P 3300 2600
 F 0 "Q1" H 3500 2500 50  0000 C CNN
@@ -189,7 +189,7 @@ F 3 "" H 3300 2600 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L BC237 Q2
+L BC237-RESCUE-ir-switcher Q2
 U 1 1 5517C1F2
 P 3300 3700
 F 0 "Q2" H 3500 3600 50  0000 C CNN
@@ -263,7 +263,7 @@ F 3 "" H 1300 2100 60  0000 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L GND #PWR05
+L GND-RESCUE-ir-switcher #PWR05
 U 1 1 5517DF55
 P 1950 3400
 F 0 "#PWR05" H 1950 3400 30  0001 C CNN
@@ -305,7 +305,7 @@ Text Label 1650 1850 0    60   ~ 0
 Text Label 1650 2350 0    60   ~ 0
 GND
 $Comp
-L GND #PWR06
+L GND-RESCUE-ir-switcher #PWR06
 U 1 1 5517E1BD
 P 2000 1750
 F 0 "#PWR06" H 2000 1750 30  0001 C CNN
@@ -324,7 +324,7 @@ Wire Wire Line
 Wire Wire Line
 	1650 2250 1900 2250
 $Comp
-L GND #PWR07
+L GND-RESCUE-ir-switcher #PWR07
 U 1 1 5517E2BC
 P 2300 2350
 F 0 "#PWR07" H 2300 2350 30  0001 C CNN
