@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+set -u
+
+testip={{ syslog_host }}
+iface=wlan0
+interfaces_file=/etc/network/interfaces-o2
+interfaces_file2=/etc/network/interfaces-o2ex
+active_since_hour=7
+active_to_hour=20
+
+if ! hour-between $active_since_hour $active_to_hour; then
+    ifdown --force ${iface}
+    exit 0
+fi
+
+ping -c4 ${testip} > /dev/null
+ping_status=$?
+
+if [[ ${ping_status} != 0 ]]; then
+    ifdown --force ${iface}
+    ifup -i ${interfaces_file} ${iface}
+fi
+
+
+if ping -c4 ${testip} > /dev/null; then
+    exit 0
+fi
+
+ifdown --force ${iface};
+ifup -i ${interfaces_file2} ${iface}
+

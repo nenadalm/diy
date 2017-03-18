@@ -1,0 +1,107 @@
+---
+- hosts: raspicams
+  vars:
+      # syslog server receiving logs from raspicams
+      syslog_host: 192.168.1.1
+      syslog_port: 51400
+      interfaces_o2__wpa_ssid: ssid1
+      interfaces_o2__wpa_psk: "pass1"
+      interfaces_o2ex__wpa_ssid: ssid2
+      interfaces_o2ex__wpa_psk: "pass2"
+  tasks:
+      - copy:
+          src: config/etc/
+          dest: /etc/
+      - copy:
+          src: config/usr/local/bin/
+          dest: /usr/local/bin/
+          owner: root
+          group: staff
+          mode: u=rwx,g=rx,o=rx
+      - copy:
+          src: config/usr/local/sbin/
+          dest: /usr/local/sbin/
+          owner: root
+          group: staff
+          mode: u=rwx,g=rx,o=rx
+      - template:
+          src: template/etc/rsyslog.d/tcp.conf
+          dest: /etc/rsyslog.d/tcp.conf
+      - template:
+          src: template/etc/network/interfaces-o2
+          dest: /etc/network/interfaces-o2
+      - template:
+          src: template/etc/network/interfaces-o2ex
+          dest: /etc/network/interfaces-o2ex
+      - template:
+          src: template/usr/local/sbin/reconnect-wlan0
+          dest: /usr/local/sbin/reconnect-wlan0
+          owner: root
+          group: staff
+          mode: u=rwx,g=rx,o=rx
+      - package:
+          name: motion
+          state: present
+      - package:
+          name: tree
+          state: present
+      - package:
+          name: vim
+          state: present
+      - package:
+          name: i2c-tools
+          state: present
+      - cron:
+          name: 'reconnect-wlan0'
+          cron_file: /etc/crontab
+          minute: '*/2'
+          job: /usr/local/sbin/reconnect-wlan0
+          user: root
+      - file:
+          src: /usr/local/sbin/remove-old-records
+          dest: /etc/cron.daily/remove-old-records
+          state: link
+      - user:
+          name: motion
+          home: /home/motion
+          move_home: yes
+      - group:
+          name: motion
+
+      #
+      # Extending life of sd card
+      #
+
+      # external drive to save videos
+      - mount:
+          name: /home/motion
+          fstype: vfat
+          src: /dev/sda1
+          opts: defaults,uid=motion,gid=motion
+          state: present
+          passno: 1
+      - mount:
+          name: /tmp
+          fstype: tmpfs
+          src: tmpfs
+          opts: defaults,noatime,nosuid,size=100m
+          state: present
+      - mount:
+          name: /var/tmp
+          fstype: tmpfs
+          src: tmpfs
+          opts: defaults,noatime,nosuid,size=30m
+          state: present
+      - mount:
+          name: /var/log
+          fstype: tmpfs
+          src: tmpfs
+          opts: defaults,noatime,nosuid,mode=0755,size=100m
+          state: present
+      - mount:
+          name: /run
+          fstype: tmpfs
+          src: tmpfs
+          opts: defaults,noatime,nosuid,mode=0755,size=100m
+          state: present
+

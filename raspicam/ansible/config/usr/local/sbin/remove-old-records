@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+find /home/motion -type f -mtime +30 | xargs rm
+

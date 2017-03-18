@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+i2cset -y 1 0x23 0x01
+i2cset -y 1 0x23 0x10
+sleep 1
+i2cget -y 1 0x23 0x00 w
+

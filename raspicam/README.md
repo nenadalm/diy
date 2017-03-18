@@ -4,6 +4,44 @@
 
 ## How to
 
+* install lite image of [raspbian][10]
+* login into raspbian using default username ```pi``` and  password ```raspberry```
+    * run ```$ sudo raspi-config```
+        * expand filesystem
+        * enable camera: "Interfacing Options"/Camera/Yes
+        * enable i2c: "Interfacing Options"/I2C/Yes
+    * configure keyboard    ```$ sudo dpkg-reconfigure keyboard-configuration```
+    * enable ssh on startup ```$ sudo update-rc.d ssh enable```
+    * reboot ```$ sudo shutdown -r now```
+    * configure network
+        * example
+            * open /etc/network/interfaces ```$ sudo vi /etc/network/interfaces```
+            ```
+            auto wlan0
+                iface wlan0 inet dhcp
+                wpa-ssid "ssid"
+                wpa-psk "password"
+            ```
+            * connect to the network
+                * ```$ sudo ifdown wlan0 && sudo ifup wlan0```
+    * update system
+    ``` $ sudo apt-get update && sudo apt-get upgrade -y```
+* use another pc to configure the pi
+    * copy ssh-key into the camera
+    ```
+    $ ssh-copy-id pi@<pi_ip_addr>
+    ```
+    * ssh into pi and copy the public key to be able to login as root
+        $ sudo cp -R .ssh /root
+    * configure all your raspberry pis used as cam in ```/etc/ansible/hosts```
+    ```
+    [raspicams]
+    <ip_of_the_pi> ansible_connection=ssh ansible_ssh_user=root
+    ```
+    * let ansible to configure the rest (the command also serves for updating to the latest version of raspicam)
+    ```
+    $ ansible-playbook ansible/playbook.yml
+    ```
 * make ir-cut filter switcher (subdirectory ir-switcher)
 * make case (subdirectory case)
 * wire everything and put that into camera case
@@ -39,4 +77,5 @@
 [7]: http://www.openscad.org/
 [8]: http://slic3r.org/
 [9]: https://www.raspberrypi.org/products/pi-noir-camera/
+[10]: https://www.raspberrypi.org/downloads/raspbian/
 

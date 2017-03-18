@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+# Returns exit status 0 when current hour is between $1 and $2 or 1 if it's not
+
+hour_min=$1
+hour_max=$2
+
+hour=$(date +%H)
+hour=${hour#0}
+
+if [[ $hour_min -le $hour && $hour_max -ge $hour ]]; then
+    exit 0
+fi
+
+exit 1
+

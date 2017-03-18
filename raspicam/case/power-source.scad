@@ -1,5 +1,6 @@
-w = 56;
-h = 49;
+tolerance = 0.6;
+w = 59 + tolerance * 2;
+h = 49 + tolerance * 2;
 thickness = 3;
 bottom_space = 3;
 board_thickness = 1.16;
