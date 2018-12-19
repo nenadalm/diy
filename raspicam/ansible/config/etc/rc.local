@@ -17,10 +17,6 @@ if [ "$_IP" ]; then
   printf "My IP address is %s\n" "$_IP"
 fi
 
-# set time so wifi is connected and proper datetime can be synced
-date --set "7:00" +"H:M"
-
-/usr/local/sbin/reconnect-wlan0 &
 /usr/local/sbin/ir-switcher &
 
 exit 0

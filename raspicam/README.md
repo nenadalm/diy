@@ -7,12 +7,11 @@
 * install lite image of [raspbian][10]
 * login into raspbian using default username ```pi``` and  password ```raspberry```
     * run ```$ sudo raspi-config```
-        * expand filesystem
         * enable camera: "Interfacing Options"/Camera/Yes
         * enable i2c: "Interfacing Options"/I2C/Yes
     * configure keyboard    ```$ sudo dpkg-reconfigure keyboard-configuration```
     * enable ssh on startup ```$ sudo update-rc.d ssh enable```
-    * reboot ```$ sudo shutdown -r now```
+    * reboot ```$ sudo reboot```
     * configure network
         * example
             * open /etc/network/interfaces ```$ sudo vi /etc/network/interfaces```

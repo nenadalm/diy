@@ -4,10 +4,10 @@
       # syslog server receiving logs from raspicams
       syslog_host: 192.168.1.1
       syslog_port: 51400
-      interfaces_o2__wpa_ssid: ssid1
-      interfaces_o2__wpa_psk: "pass1"
-      interfaces_o2ex__wpa_ssid: ssid2
-      interfaces_o2ex__wpa_psk: "pass2"
+      interfaces_o2__wpa_ssid: O2
+      interfaces_o2__wpa_psk: "wr300Mgb."
+      interfaces_o2ex__wpa_ssid: O2_2EX
+      interfaces_o2ex__wpa_psk: "wr300Mgb."
   tasks:
       - copy:
           src: config/etc/
@@ -27,18 +27,6 @@
       - template:
           src: template/etc/rsyslog.d/tcp.conf
           dest: /etc/rsyslog.d/tcp.conf
-      - template:
-          src: template/etc/network/interfaces-o2
-          dest: /etc/network/interfaces-o2
-      - template:
-          src: template/etc/network/interfaces-o2ex
-          dest: /etc/network/interfaces-o2ex
-      - template:
-          src: template/usr/local/sbin/reconnect-wlan0
-          dest: /usr/local/sbin/reconnect-wlan0
-          owner: root
-          group: staff
-          mode: u=rwx,g=rx,o=rx
       - package:
           name: motion
           state: present
@@ -51,23 +39,35 @@
       - package:
           name: i2c-tools
           state: present
-      - cron:
-          name: 'reconnect-wlan0'
-          cron_file: /etc/crontab
-          minute: '*/2'
-          job: /usr/local/sbin/reconnect-wlan0
-          user: root
       - file:
           src: /usr/local/sbin/remove-old-records
           dest: /etc/cron.daily/remove-old-records
           state: link
-      - user:
-          name: motion
-          home: /home/motion
-          move_home: yes
-      - group:
-          name: motion
-
+      #- user:
+          #name: motion
+          #home: /home/motion
+          #move_home: yes
+      #- group:
+          #name: motion
+      - blockinfile:
+          path: /etc/dhcpcd.conf
+          content: |
+              interface eth0
+              static ip_address=192.168.2.2
+              static routers=192.168.2.1
+      - blockinfile:
+          path: /etc/wpa_supplicant/wpa_supplicant.conf
+          content: |
+              network={
+                  ssid="{{ interfaces_o2__wpa_ssid }}"
+                  psk="{{ interfaces_o2__wpa_psk }}"
+                  id_str="{{ interfaces_o2__wpa_ssid }}"
+              }
+              network={
+                  ssid="{{ interfaces_o2ex__wpa_ssid }}"
+                  psk="{{ interfaces_o2ex__wpa_psk }}"
+                  id_str="{{ interfaces_o2ex__wpa_ssid }}"
+              }
       #
       # Extending life of sd card
       #
@@ -104,4 +104,3 @@
           src: tmpfs
           opts: defaults,noatime,nosuid,mode=0755,size=100m
           state: present
-
