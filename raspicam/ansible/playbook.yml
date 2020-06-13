@@ -43,6 +43,9 @@
           src: /usr/local/sbin/remove-old-records
           dest: /etc/cron.daily/remove-old-records
           state: link
+      - cron:
+          name: 'check motion'
+          job: 'systemctl status motion || systemctl restart motion'
       #- user:
           #name: motion
           #home: /home/motion
