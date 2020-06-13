@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-find /home/motion -type f -mtime +30 | xargs rm
+find /home/motion -type f -mtime +60 | xargs rm
 
