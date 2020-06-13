@@ -4,10 +4,6 @@
       # syslog server receiving logs from raspicams
       syslog_host: 192.168.1.1
       syslog_port: 51400
-      interfaces_o2__wpa_ssid: O2
-      interfaces_o2__wpa_psk: "wr300Mgb."
-      interfaces_o2ex__wpa_ssid: O2_2EX
-      interfaces_o2ex__wpa_psk: "wr300Mgb."
   tasks:
       - copy:
           src: config/etc/
@@ -52,25 +48,7 @@
           #move_home: yes
       #- group:
           #name: motion
-      - blockinfile:
-          path: /etc/dhcpcd.conf
-          content: |
-              interface eth0
-              static ip_address=192.168.2.2
-              static routers=192.168.2.1
-      - blockinfile:
-          path: /etc/wpa_supplicant/wpa_supplicant.conf
-          content: |
-              network={
-                  ssid="{{ interfaces_o2__wpa_ssid }}"
-                  psk="{{ interfaces_o2__wpa_psk }}"
-                  id_str="{{ interfaces_o2__wpa_ssid }}"
-              }
-              network={
-                  ssid="{{ interfaces_o2ex__wpa_ssid }}"
-                  psk="{{ interfaces_o2ex__wpa_psk }}"
-                  id_str="{{ interfaces_o2ex__wpa_ssid }}"
-              }
+
       #
       # Extending life of sd card
       #
