@@ -41,7 +41,7 @@
           state: link
       - cron:
           name: 'check motion'
-          job: 'systemctl status motion || systemctl restart motion'
+          job: "[ \"$(systemctl show --property SubState --value motion)\" != 'running' ] && systemctl restart motion"
       #- user:
           #name: motion
           #home: /home/motion
