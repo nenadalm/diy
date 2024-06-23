@@ -1,0 +1,13 @@
+[Unit]
+After=home-pi-cam.mount
+Requires=home-pi-cam.mount
+
+[Service]
+User=pi
+ExecStart=/usr/local/bin/cam
+TimeoutStopSec=3
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+state=0
+boundary_value=0x0400
+sleep_time=$((15 * 60))
+
+ir-off
+while true; do
+    if [[ $(i2c-lux) -le $boundary_value ]]; then
+    	[[ $state -eq 0 ]] && ir-on && state=1
+    else
+    	[[ $state -eq 1 ]] && ir-off && state=0
+    fi
+    sleep $sleep_time
+done
+

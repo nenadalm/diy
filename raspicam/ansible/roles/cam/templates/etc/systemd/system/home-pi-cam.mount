@@ -1,0 +1,8 @@
+[Mount]
+What={{disk_path}}
+Where=/home/pi/cam
+Type=ext4
+Options=defaults,noatime
+
+[Install]
+WantedBy=multi-user.target

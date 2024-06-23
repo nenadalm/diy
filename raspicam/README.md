@@ -4,27 +4,14 @@
 
 ## How to
 
-* install lite image of [raspbian][10]
+* install lite image of [Raspberry Pi OS][10]
 * login into raspbian using default username ```pi``` and  password ```raspberry```
     * run ```$ sudo raspi-config```
-        * enable camera: "Interfacing Options"/Camera/Yes
         * enable i2c: "Interfacing Options"/I2C/Yes
-    * configure keyboard    ```$ sudo dpkg-reconfigure keyboard-configuration```
-    * enable ssh on startup ```$ sudo update-rc.d ssh enable```
+        * enable ssh: "Interfacing Options"/SSH/Yes
     * reboot ```$ sudo reboot```
-    * configure network
-        * example
-            * open /etc/network/interfaces ```$ sudo vi /etc/network/interfaces```
-            ```
-            auto wlan0
-                iface wlan0 inet dhcp
-                wpa-ssid "ssid"
-                wpa-psk "password"
-            ```
-            * connect to the network
-                * ```$ sudo ifdown wlan0 && sudo ifup wlan0```
     * update system
-    ``` $ sudo apt-get update && sudo apt-get upgrade -y```
+    ``` $ sudo apt update && sudo apt full-upgrade -y```
 * use another pc to configure the pi
     * copy ssh-key into the camera
     ```
@@ -39,7 +26,7 @@
     ```
     * let ansible to configure the rest (the command also serves for updating to the latest version of raspicam)
     ```
-    $ ansible-playbook ansible/playbook.yml
+    $ ansible-playbook ./ansible/playbook2.yml
     ```
 * make ir-cut filter switcher (subdirectory ir-switcher)
 * make case (subdirectory case)
@@ -76,5 +63,4 @@
 [7]: http://www.openscad.org/
 [8]: http://slic3r.org/
 [9]: https://www.raspberrypi.org/products/pi-noir-camera/
-[10]: https://www.raspberrypi.org/downloads/raspbian/
-
+[10]: https://www.raspberrypi.com/software/

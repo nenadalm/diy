@@ -1,0 +1,68 @@
+---
+- template:
+    src: usr/local/sbin/remove-old-records
+    dest: /usr/local/sbin/remove-old-records
+- file:
+    src: /usr/local/sbin/remove-old-records
+    dest: /etc/cron.daily/remove-old-records
+    state: link
+- template:
+    src: etc/systemd/system/ir-switcher.service
+    dest: /etc/systemd/system/ir-switcher.service
+- template:
+    src: etc/systemd/system/cam.service
+    dest: /etc/systemd/system/cam.service
+- template:
+    src: etc/systemd/system/home-pi-cam.mount
+    dest: /etc/systemd/system/home-pi-cam.mount
+- template:
+    src: usr/local/bin/cam
+    dest: /usr/local/bin/cam
+    mode: u=rwx,g=rx,o=rx
+- template:
+    src: etc/modules-load.d/modules.conf
+    dest: /etc/modules-load.d/modules.conf
+- copy:
+    src: files/usr/local/sbin/
+    dest: /usr/local/sbin/
+    owner: root
+    group: staff
+    mode: u=rwx,g=rx,o=rx
+- package:
+    name: vim
+    state: present
+- package:
+    name: i2c-tools
+    state: present
+
+# extend life of sd card
+- mount:
+    name: /tmp
+    fstype: tmpfs
+    src: tmpfs
+    opts: defaults,noatime,nosuid,size=100m
+    state: present
+- mount:
+    name: /var/tmp
+    fstype: tmpfs
+    src: tmpfs
+    opts: defaults,noatime,nosuid,size=30m
+    state: present
+- mount:
+    name: /var/log
+    fstype: tmpfs
+    src: tmpfs
+    opts: defaults,noatime,nosuid,mode=0755,size=100m
+    state: present
+- mount:
+    name: /var/spool
+    fstype: tmpfs
+    src: tmpfs
+    opts: defaults,noatime,nosuid,mode=0755,size=100m
+    state: present
+- mount:
+    name: /run
+    fstype: tmpfs
+    src: tmpfs
+    opts: defaults,noatime,nosuid,mode=0755,size=100m
+    state: present

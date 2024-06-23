@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+exec /usr/bin/libcamera-vid --hflip --vflip --framerate 2 -t 0 --segment 900000 --width {{recording_height}} --height {{recording_width}} -o "/home/pi/cam/rec_$(date +%Y%m%d_%H%M%S)_%04d.h264"

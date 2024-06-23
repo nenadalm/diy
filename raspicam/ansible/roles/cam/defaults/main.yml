@@ -1,0 +1,5 @@
+---
+recording_width: 640
+recording_height: 480
+recording_history_days: 30
+disk_path: /dev/disk/by-uuid/0d89c9e2-69e3-4669-9e7d-f3a2320513ba
