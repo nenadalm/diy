@@ -29,11 +29,23 @@
     group: staff
     mode: u=rwx,g=rx,o=rx
 - package:
-    name: vim
+    name:
+      - vim
+      - i2c-tools
     state: present
-- package:
-    name: i2c-tools
-    state: present
+- ini_file:
+    path: /etc/systemd/system.conf
+    section: Manager
+    option: RuntimeWatchdogSec
+    value: 15
+- systemd:
+    daemon_reload: true
+- systemd:
+    name: cam
+    enabled: true
+- systemd:
+    name: ir-switcher
+    enabled: true
 
 # extend life of sd card
 - mount:
@@ -41,12 +53,6 @@
     fstype: tmpfs
     src: tmpfs
     opts: defaults,noatime,nosuid,size=100m
-    state: present
-- mount:
-    name: /var/tmp
-    fstype: tmpfs
-    src: tmpfs
-    opts: defaults,noatime,nosuid,size=30m
     state: present
 - mount:
     name: /var/log
